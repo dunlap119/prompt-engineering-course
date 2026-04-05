@@ -5,7 +5,7 @@
 import { course } from '../data/courseStructure.js';
 import { isSectionComplete, getCompletedSections } from '../progress/progressStore.js';
 import { isSectionUnlocked } from '../progress/unlockManager.js';
-import { navigate } from '../router.js';
+import { navigate, navigateHome } from '../router.js';
 
 let activeSectionId = null;
 
@@ -42,7 +42,7 @@ export function updateProgress() {
 
 function renderLogo() {
   const container = document.getElementById('sidebar-logo');
-  container.innerHTML = `<img src="assets/cal-logo-blue.png" alt="Create a Loop" style="width:180px;height:auto">`;
+  container.innerHTML = `<a href="#/home" style="display:block"><img src="assets/cal-logo-blue.png" alt="Create a Loop" style="width:180px;height:auto"></a>`;
 }
 
 function renderProgress() {

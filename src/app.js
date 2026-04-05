@@ -8,6 +8,7 @@ import { updateBreadcrumb } from './ui/breadcrumb.js';
 import { renderSectionNav, setOnComplete } from './ui/sectionNav.js';
 import { setupModalClose } from './ui/modal.js';
 import { renderSection } from './content/sectionRenderer.js';
+import { renderLanding } from './content/landingRenderer.js';
 import { isSectionUnlocked, getResumeSectionId } from './progress/unlockManager.js';
 import { setCurrentSection, getCurrentSection } from './progress/progressStore.js';
 
@@ -33,9 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initRouter(async (sectionId) => {
     if (!sectionId) {
-      // No hash — resume or start from beginning
-      const resume = getCurrentSection() || getResumeSectionId();
-      navigate(resume);
+      // No section hash — show course landing page
+      highlightSection(null);
+      updateBreadcrumb(null);
+      const contentArea = document.getElementById('content-area');
+      contentArea.innerHTML = '';
+      const sectionNav = document.getElementById('section-nav');
+      sectionNav.innerHTML = '';
+      window.scrollTo(0, 0);
+      renderLanding(contentArea);
       return;
     }
 

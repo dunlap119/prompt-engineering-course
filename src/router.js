@@ -20,6 +20,10 @@ export function getCurrentSection() {
   return currentSectionId;
 }
 
+export function navigateHome() {
+  window.location.hash = '#/home';
+}
+
 function handleHashChange() {
   const hash = window.location.hash;
   const match = hash.match(/^#\/section\/(\w+)$/);
@@ -32,9 +36,11 @@ function handleHashChange() {
         onNavigateCallback(sectionId);
       }
     }
-  } else if (onNavigateCallback) {
-    // No valid hash — callback with null so app can redirect to first section
+  } else {
+    // No valid section hash (includes #/home, empty, or anything else) — show landing
     currentSectionId = null;
-    onNavigateCallback(null);
+    if (onNavigateCallback) {
+      onNavigateCallback(null);
+    }
   }
 }

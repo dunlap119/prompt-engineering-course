@@ -9,7 +9,7 @@ export function updateBreadcrumb(sectionId) {
   const found = findSection(sectionId);
 
   if (!found) {
-    container.innerHTML = '';
+    container.innerHTML = '<span class="crumb-current">Course Home</span>';
     return;
   }
 
