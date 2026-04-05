@@ -42,19 +42,7 @@ export function updateProgress() {
 
 function renderLogo() {
   const container = document.getElementById('sidebar-logo');
-  container.innerHTML = `
-    <svg width="160" height="50" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
-      <text x="0" y="40" font-family="Inter, sans-serif" font-size="28" font-weight="800" letter-spacing="1" fill="#f7f7f7">CREATE A</text>
-      <g transform="translate(0,52)">
-        <text x="0" y="40" font-family="Inter, sans-serif" font-size="48" font-weight="800" fill="#f7f7f7">LO</text>
-        <g transform="translate(100,0)">
-          <circle cx="24" cy="24" r="22" fill="none" stroke="#2292bf" stroke-width="10"/>
-          <path d="M38,34 L38,14 L52,24 Z" fill="#2292bf" transform="rotate(20,38,24)"/>
-        </g>
-        <text x="150" y="40" font-family="Inter, sans-serif" font-size="48" font-weight="800" fill="#f7f7f7">P</text>
-      </g>
-    </svg>
-  `;
+  container.innerHTML = `<img src="assets/cal-logo-blue.png" alt="Create a Loop" style="width:180px;height:auto">`;
 }
 
 function renderProgress() {

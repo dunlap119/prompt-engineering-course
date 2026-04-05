@@ -364,12 +364,16 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s;
-  margin-top: 12px;
+  margin: 12px 20px 16px;
 }
 
-.reveal-btn:hover {
+.reveal-btn:hover:not(:disabled) {
   background: #1a7fa6;
   transform: translateY(-1px);
+}
+
+.reveal-btn:disabled {
+  cursor: default;
 }
 
 /* --- Mascot Speech Bubble --- */

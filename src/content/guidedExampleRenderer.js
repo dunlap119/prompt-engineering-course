@@ -1,5 +1,7 @@
 /**
  * Guided example renderer — step-by-step reveal with before/after comparison.
+ * Each step has its own inline "Next Step" button so readers don't have to
+ * scroll past content to advance.
  */
 
 import { getMascotSvg } from '../graphics/mascot.js';
@@ -26,7 +28,6 @@ export function renderGuidedExample(sectionData, lesson, containerEl) {
   stepsContainer.className = 'guided-steps';
 
   const steps = sectionData.data.steps;
-  let currentStep = 0;
 
   for (let i = 0; i < steps.length; i++) {
     const step = steps[i];
@@ -34,7 +35,8 @@ export function renderGuidedExample(sectionData, lesson, containerEl) {
     stepEl.className = `guided-step ${i === 0 ? 'revealed' : 'hidden-step'}`;
     stepEl.dataset.stepIndex = i;
 
-    stepEl.innerHTML = `
+    // Step header + body
+    let bodyHtml = `
       <div class="guided-step-header">
         <span class="step-number">${i + 1}</span>
         <span class="step-label">${step.label}</span>
@@ -46,36 +48,40 @@ export function renderGuidedExample(sectionData, lesson, containerEl) {
       </div>
     `;
 
+    stepEl.innerHTML = bodyHtml;
+
+    // Add inline "Next Step" button at the bottom of each step (except the last)
+    if (i < steps.length - 1) {
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'reveal-btn';
+      nextBtn.innerHTML = `Next Step: ${steps[i + 1].label} →`;
+      nextBtn.addEventListener('click', () => {
+        const nextEl = stepsContainer.querySelector(`[data-step-index="${i + 1}"]`);
+        if (nextEl) {
+          nextEl.classList.remove('hidden-step');
+          nextEl.classList.add('revealed');
+          nextBtn.innerHTML = `${steps[i + 1].label} ✓`;
+          nextBtn.disabled = true;
+          nextBtn.style.background = 'var(--course-success)';
+          nextEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+      stepEl.appendChild(nextBtn);
+    } else {
+      // Last step — show "all done" indicator
+      const doneTag = document.createElement('div');
+      doneTag.className = 'reveal-btn';
+      doneTag.style.background = 'var(--course-success)';
+      doneTag.style.cursor = 'default';
+      doneTag.style.display = 'inline-block';
+      doneTag.innerHTML = 'All steps complete ✓';
+      stepEl.appendChild(doneTag);
+    }
+
     stepsContainer.appendChild(stepEl);
   }
 
   containerEl.appendChild(stepsContainer);
-
-  // Reveal button
-  if (steps.length > 1) {
-    const revealBtn = document.createElement('button');
-    revealBtn.className = 'reveal-btn';
-    revealBtn.innerHTML = 'Next Step →';
-
-    revealBtn.addEventListener('click', () => {
-      currentStep++;
-      if (currentStep < steps.length) {
-        const nextEl = stepsContainer.querySelector(`[data-step-index="${currentStep}"]`);
-        if (nextEl) {
-          nextEl.classList.remove('hidden-step');
-          nextEl.classList.add('revealed');
-          nextEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      }
-      if (currentStep >= steps.length - 1) {
-        revealBtn.innerHTML = 'All steps revealed ✓';
-        revealBtn.disabled = true;
-        revealBtn.style.background = 'var(--course-success)';
-      }
-    });
-
-    containerEl.appendChild(revealBtn);
-  }
 
   return { requireInteraction: false };
 }
