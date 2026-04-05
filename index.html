@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Engineering Tutorial — Create a Loop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/content.css">
+  <link rel="stylesheet" href="styles/activities.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <nav id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <button id="sidebar-close" class="sidebar-close" aria-label="Close menu">&times;</button>
+      <div class="sidebar-logo" id="sidebar-logo"></div>
+      <h2 class="sidebar-title">Prompt Engineering</h2>
+    </div>
+    <div class="sidebar-progress" id="sidebar-progress"></div>
+    <div class="sidebar-nav" id="sidebar-nav"></div>
+  </nav>
+
+  <!-- Sidebar overlay for mobile -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- Main content area -->
+  <main id="main" class="main">
+    <!-- Top bar -->
+    <header class="topbar">
+      <button id="hamburger" class="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div id="breadcrumb" class="breadcrumb"></div>
+    </header>
+
+    <!-- Content area -->
+    <div id="content-area" class="content-area"></div>
+
+    <!-- Section navigation -->
+    <div id="section-nav" class="section-nav"></div>
+  </main>
+
+  <!-- Modal overlay -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div id="modal-content" class="modal-box"></div>
+  </div>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

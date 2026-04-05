@@ -1,0 +1,7 @@
+{
+  "name": "prompt-engineering-course",
+  "version": "1.0.0",
+  "description": "Interactive prompt engineering course for middle schoolers — Create a Loop",
+  "private": true,
+  "type": "module"
+}

@@ -1,0 +1,310 @@
+/**
+ * Lesson 6 prompt challenges — 5 boss-level challenges.
+ * These combine everything: CRAFT, advanced techniques, and defensive prompting.
+ * Higher thresholds and more criteria than previous lessons.
+ */
+
+export const lesson6Challenges = {
+  L6C1: {
+    id: 'L6C1',
+    title: 'Research Helper',
+    task: 'Write a prompt asking the AI to help you research a science topic for a school paper. Your prompt must use the CRAFT framework AND include defensive prompting — ask the AI to cite sources, admit what it doesn\'t know, and separate facts from opinions.',
+    hint: 'Combine everything: give context (what the paper is for), assign a role (research assistant), make a clear ask (specific science topic), set a format (outline, list of key points), set a tone, AND add defensive instructions (cite sources, be honest about uncertainty).',
+    criteria: [
+      {
+        id: 'boss1-context',
+        label: 'Provides context about the assignment',
+        test: 'containsAny',
+        args: [['paper', 'report', 'project', 'assignment', 'essay', 'research', 'presentation', 'class', 'school', 'studying', 'learning about']],
+        weight: 1,
+      },
+      {
+        id: 'boss1-role',
+        label: 'Assigns a role',
+        test: 'containsAny',
+        args: [['act as', 'you are', 'pretend', 'be a', 'be my', 'act like', 'you\'re a', 'as a', 'like a']],
+        weight: 1,
+      },
+      {
+        id: 'boss1-topic',
+        label: 'Names a specific science topic',
+        test: 'containsAny',
+        args: [['climate', 'space', 'ocean', 'animal', 'evolution', 'cell', 'cells', 'DNA', 'genetics', 'ecosystem', 'energy', 'electricity', 'magnetism', 'volcano', 'earthquake', 'weather', 'planet', 'star', 'black hole', 'dinosaur', 'bacteria', 'virus', 'brain', 'photosynthesis', 'pollution', 'renewable', 'fossil', 'atom', 'molecule', 'gravity']],
+        weight: 1,
+      },
+      {
+        id: 'boss1-format',
+        label: 'Specifies a format or structure',
+        test: 'containsAny',
+        args: [['outline', 'list', 'bullet', 'numbered', 'section', 'paragraph', 'heading', 'table', 'organized', 'format', 'structure', 'key points', 'summary']],
+        weight: 1,
+      },
+      {
+        id: 'boss1-sources',
+        label: 'Asks for sources or citations',
+        test: 'containsAny',
+        args: [['source', 'sources', 'cite', 'citation', 'reference', 'evidence', 'link', 'website', 'study', 'verify', 'where']],
+        weight: 1,
+      },
+      {
+        id: 'boss1-honesty',
+        label: 'Includes defensive prompting (honesty/uncertainty)',
+        test: 'containsAny',
+        args: [['don\'t make up', 'don\'t guess', 'if you\'re not sure', 'honest', 'I don\'t know', 'uncertain', 'fact', 'opinion', 'accurate', 'reliable', 'be transparent', 'admit', 'not sure']],
+        weight: 1,
+      },
+    ],
+    thresholds: { good: 3, great: 5 },
+    responses: {
+      poor: 'Black holes are very interesting objects in space. They are formed when large stars collapse. They have very strong gravity that nothing can escape from, not even light. Scientists study them using various methods. They are important for understanding the universe.',
+      good: 'As your research assistant, here\'s an overview of black holes for your science paper:\n\nKey Facts:\n- Black holes form when massive stars (at least 3x the sun\'s mass) collapse after dying\n- Their gravity is so strong that nothing — not even light — can escape once it crosses the "event horizon"\n- The center of a black hole is called a singularity, where matter is infinitely dense\n- Supermassive black holes exist at the center of most galaxies, including our Milky Way (called Sagittarius A*)\n\nSources to verify:\n- NASA Black Holes page (nasa.gov)\n- European Space Agency (esa.int)\n\nNote: Some of what we "know" about black holes is still theoretical. I\'d recommend noting in your paper which facts are well-established versus which are current theories.',
+      great: 'Research Assistant Report: Black Holes (for 7th Grade Science Paper)\n\nI. WHAT ARE BLACK HOLES?\n- Regions of space where gravity is so extreme that nothing can escape, including light\n- Formed when massive stars (3+ solar masses) collapse at end of their life\n- Source: NASA Science (science.nasa.gov/astrophysics/focus-areas/black-holes)\n\nII. TYPES OF BLACK HOLES\n- Stellar black holes: formed from collapsed stars (5-100x sun\'s mass)\n- Supermassive black holes: millions to billions of solar masses, found at galaxy centers\n- Intermediate black holes: recently discovered category between the two\n- Source: ESA Hubble documentation (esahubble.org)\n\nIII. KEY DISCOVERIES\n- 2019: First-ever photo of a black hole (M87 galaxy) by Event Horizon Telescope\n- Sagittarius A* confirmed as Milky Way\'s central black hole\n- Source: Event Horizon Telescope project (eventhorizontelescope.org)\n\nIV. WHAT WE DON\'T FULLY KNOW YET (be honest in your paper!)\n- What happens inside a black hole beyond the event horizon\n- How to reconcile black holes with quantum mechanics\n- Whether information that falls in is truly "lost"\n\nHONESTY NOTE: I\'m an AI and my training data has a cutoff date. The specific measurements and dates above should be verified against current NASA/ESA sources. I\'ve tried to stick to well-established facts, but black hole science is an active field with new discoveries frequently.\n\nFACTS vs. THEORIES: Items in sections I-III are well-supported by observations. Section IV contains open questions where scientists are still researching. Your paper should acknowledge this difference!',
+    },
+    feedback: {
+      poor: 'Your prompt was too basic for a research task. You need CRAFT elements AND defensive prompting (sources, honesty, fact vs. opinion) for reliable research help.',
+      good: 'Solid effort! You included some CRAFT elements and some defensive prompting. Try adding more — sources, honesty instructions, and clear formatting together.',
+      great: 'Boss-level research prompt! You combined CRAFT with defensive prompting to get a well-sourced, honest, clearly-structured research brief. This is professional-grade prompt engineering!',
+    },
+  },
+
+  L6C2: {
+    id: 'L6C2',
+    title: 'Creative Brief',
+    task: 'Write a prompt for a creative writing piece (story, poem, script) with very specific constraints. Include a role, a detailed ask with constraints, a format, and at least one example of the style you want (few-shot).',
+    hint: 'Assign a creative role (storyteller, poet, screenwriter). Set specific constraints like genre, length, character details, and setting. Include ONE example of the style or format you want the AI to follow.',
+    criteria: [
+      {
+        id: 'boss2-role',
+        label: 'Assigns a creative role',
+        test: 'containsAny',
+        args: [['act as', 'you are', 'pretend', 'be a', 'you\'re a', 'as a', 'like a', 'write as', 'storyteller', 'poet', 'author', 'screenwriter', 'playwright', 'narrator', 'writer']],
+        weight: 1,
+      },
+      {
+        id: 'boss2-genre',
+        label: 'Specifies genre or type of creative work',
+        test: 'containsAny',
+        args: [['mystery', 'adventure', 'sci-fi', 'fantasy', 'horror', 'comedy', 'fairy tale', 'poem', 'haiku', 'limerick', 'rap', 'song', 'script', 'play', 'story', 'dialogue', 'monologue', 'superhero', 'thriller', 'ghost', 'detective']],
+        weight: 1,
+      },
+      {
+        id: 'boss2-constraints',
+        label: 'Sets specific constraints (length, character, setting)',
+        test: 'containsAny',
+        args: [['paragraph', 'word', 'words', 'line', 'lines', 'stanza', 'verse', 'chapter', 'short', 'under', 'character', 'main character', 'setting', 'set in', 'takes place', 'must include', 'has to', 'should include', 'ending']],
+        weight: 1,
+      },
+      {
+        id: 'boss2-format',
+        label: 'Specifies format or structure',
+        test: 'containsAny',
+        args: [['format', 'structure', 'section', 'part', 'beginning', 'middle', 'end', 'title', 'heading', 'rhyme', 'rhyming', 'syllable', 'pattern', 'twist ending', 'cliffhanger', 'dialogue']],
+        weight: 1,
+      },
+      {
+        id: 'boss2-example',
+        label: 'Includes an example or style reference',
+        test: 'containsAny',
+        args: [['example', 'for example', 'like this', 'here is', 'here\'s', 'sample', 'similar to', 'in the style of', 'inspired by', 'format:', 'pattern:', 'template', 'such as']],
+        weight: 1,
+      },
+    ],
+    thresholds: { good: 3, great: 5 },
+    responses: {
+      poor: 'The stars twinkled in the night sky as the adventure began. A hero set out on a quest. There were challenges along the way but in the end, things worked out.',
+      good: 'THE LAST SIGNAL - A Sci-Fi Mystery\n\nThe distress call came from Sector 7, a region of space that had been abandoned for thirty years. Commander Lin stared at the readout: "SOS - STATION OMEGA - CREW ALIVE - SEND HELP."\n\n"That\'s impossible," muttered the navigator. "Station Omega was decommissioned in 2247. There shouldn\'t be anyone there."\n\nLin made the call. "Set course for Sector 7. Full speed."\n\nThree days later, they found the station — lights on, systems running, and a single figure standing at the observation window. When the figure turned, Lin\'s blood went cold. She was staring at her own face.',
+      great: 'THE LAST SIGNAL\nA Sci-Fi Mystery | 3 Parts | Twist Ending | For Middle Schoolers\n\nPART 1: THE CALL\nThe distress signal had been repeating for exactly 72 hours when Commander Lin\'s ship picked it up: "SOS — STATION OMEGA — CREW ALIVE — PLEASE RESPOND."\n\nLin frowned. Station Omega had been abandoned in 2247 — thirty years ago. Her navigator confirmed: no ships had been to Sector 7 since.\n\n"Could be a glitch," he said. "Old systems echoing."\n\n"Old systems don\'t say \'please,\'" Lin replied. "Set course. Full speed."\n\nPART 2: THE STATION\nStation Omega looked exactly like the old photos — except it shouldn\'t have been running. Lights blazed. Air recyclers hummed. In the mess hall, they found five meals still warm on the table. Five chairs, pushed back as if the people sitting in them had just stepped away.\n\n"Where is everyone?" whispered Ensign Park.\n\nThen the PA system crackled: "Welcome back, Commander. We\'ve been waiting for you."\n\nPark looked at Lin. "You\'ve never been here before... right?"\n\nLin didn\'t answer. Because on the wall in front of her was a photograph — yellowed, thirty years old — of a crew of five scientists. And the woman in the center, smiling confidently at the camera... was her.\n\nPART 3: THE TWIST\nLin\'s hands trembled as she pulled the photo from the wall. The nameplate read: "DR. ELENA LIN — STATION OMEGA — LEAD RESEARCHER — 2245."\n\nSame face. Same scar above her left eyebrow. But Lin had been born in 2260.\n\n"Commander," Park said slowly, looking at his scanner. "The five life signs on this station... they\'re coming from us. There\'s nobody else here. There was never anybody else here."\n\nThe PA crackled one last time: "You didn\'t come to rescue us, Commander. You came because it\'s time to remember."\n\nThe lights went out. When they came back on three seconds later, the photograph had changed. Now it showed six scientists.\n\nLin was still in the center. But now, standing right behind her... was herself.\n\n[END]\n\nWord count: ~310 | Genre: Sci-fi mystery | Twist type: Identity/time paradox',
+    },
+    feedback: {
+      poor: 'Your creative prompt needs way more detail! Genre, characters, constraints, and a style example would transform this from generic to amazing.',
+      good: 'Good creative brief! You included several constraints and the AI delivered a focused piece. Try adding a style example or more structural details.',
+      great: 'Master storyteller prompt! Your specific constraints, role, format, and style direction produced a polished, publish-ready creative piece!',
+    },
+  },
+
+  L6C3: {
+    id: 'L6C3',
+    title: 'Personal Tutor',
+    task: 'Write a prompt that turns the AI into a personalized tutor for a subject you\'re studying. Use role assignment, chain-of-thought reasoning, audience awareness, and a clear teaching format.',
+    hint: 'Assign a tutor role with a personality. Specify your grade level and what you\'re confused about. Ask for step-by-step explanations, examples, and maybe practice problems. Tell the AI how you learn best!',
+    criteria: [
+      {
+        id: 'boss3-role',
+        label: 'Assigns a tutor/teacher role',
+        test: 'containsAny',
+        args: [['act as', 'you are', 'be my', 'you\'re a', 'pretend', 'as a', 'tutor', 'teacher', 'mentor', 'coach', 'instructor', 'professor', 'guide']],
+        weight: 1,
+      },
+      {
+        id: 'boss3-audience',
+        label: 'Specifies grade level or learning context',
+        test: 'containsAny',
+        args: [['grade', 'grader', 'middle school', 'student', 'I\'m in', 'year-old', 'beginner', 'learning', 'struggling', 'confused', 'new to', 'don\'t understand', 'having trouble', 'need help', 'my level']],
+        weight: 1,
+      },
+      {
+        id: 'boss3-cot',
+        label: 'Requests step-by-step explanation',
+        test: 'containsAny',
+        args: [['step by step', 'step-by-step', 'explain each step', 'walk me through', 'break it down', 'show your work', 'one step at a time', 'slowly', 'gradually', 'build up', 'start with the basics']],
+        weight: 1,
+      },
+      {
+        id: 'boss3-subject',
+        label: 'Names a specific subject or concept',
+        test: 'containsAny',
+        args: [['math', 'algebra', 'fraction', 'equation', 'geometry', 'science', 'history', 'english', 'grammar', 'writing', 'reading', 'vocabulary', 'biology', 'chemistry', 'physics', 'exponent', 'variable', 'percent', 'ratio', 'slope', 'area', 'volume', 'essay']],
+        weight: 1,
+      },
+      {
+        id: 'boss3-format',
+        label: 'Asks for examples or practice problems',
+        test: 'containsAny',
+        args: [['example', 'examples', 'practice', 'problem', 'problems', 'exercise', 'quiz', 'question', 'questions', 'try it', 'test me', 'check my understanding', 'analogy', 'real world', 'real-world']],
+        weight: 1,
+      },
+    ],
+    thresholds: { good: 3, great: 5 },
+    responses: {
+      poor: 'To solve an equation, you need to isolate the variable on one side. Use inverse operations to move terms from one side to the other. Remember to do the same thing to both sides of the equation.',
+      good: 'As your math tutor, let me help you with two-step equations!\n\nA two-step equation takes two operations to solve. Here\'s an example:\n\n2x + 5 = 13\n\nStep 1: Subtract 5 from both sides\n2x + 5 - 5 = 13 - 5\n2x = 8\n\nStep 2: Divide both sides by 2\n2x / 2 = 8 / 2\nx = 4\n\nThe rule: always do the OPPOSITE operation, and always do the SAME thing to BOTH sides!\n\nWant to try one? Solve: 3x - 7 = 14',
+      great: 'Hey! I\'m Ms. Equation, your friendly 7th-grade math tutor. I hear two-step equations are giving you trouble — no worries, we\'ll conquer these together, step by step!\n\nFIRST, LET\'S UNDERSTAND THE CONCEPT:\nA two-step equation is like a puzzle with two locks. You need to "undo" two operations to find x. The secret? Work BACKWARDS from the order of operations!\n\nEXAMPLE 1 (I\'ll show you):\nSolve: 2x + 5 = 13\n\nStep 1: Undo the addition first (subtract 5 from both sides)\n   2x + 5 - 5 = 13 - 5\n   2x = 8\n   Why? Because +5 and -5 cancel out!\n\nStep 2: Undo the multiplication (divide both sides by 2)\n   2x / 2 = 8 / 2\n   x = 4\n   Why? Because 2 divided by 2 = 1, leaving just x!\n\nStep 3: CHECK IT! Plug x = 4 back in:\n   2(4) + 5 = 8 + 5 = 13 ✓ It works!\n\nEXAMPLE 2 (with a negative):\nSolve: 3x - 7 = 14\n\nStep 1: Add 7 to both sides (undo the subtraction)\n   3x - 7 + 7 = 14 + 7\n   3x = 21\n\nStep 2: Divide both sides by 3\n   x = 7\n\nCheck: 3(7) - 7 = 21 - 7 = 14 ✓\n\nTHE GOLDEN RULE: Whatever you do to one side, you MUST do to the other side. Think of it like a balanced scale — if you add weight to one side, you have to add the same weight to the other!\n\nNOW YOU TRY! (cover the answers and try these):\n1. 4x + 3 = 19    (Answer: x = 4)\n2. 5x - 10 = 25   (Answer: x = 7)\n3. 2x + 8 = 2     (Answer: x = -3 — tricky! negative answer!)\n\nHow did you do? If any step confused you, tell me which one and I\'ll explain it a different way!',
+    },
+    feedback: {
+      poor: 'Your prompt didn\'t set up a real tutoring session. The AI needs a role, your level, what you\'re struggling with, and how you want it explained.',
+      good: 'Good tutor setup! You included several key elements. Try adding practice problems, real-world examples, or check-for-understanding questions to make it a full lesson.',
+      great: 'Incredible tutor prompt! You created a personalized learning experience with step-by-step reasoning, examples, practice, and a supportive tone. This is how you actually LEARN with AI!',
+    },
+  },
+
+  L6C4: {
+    id: 'L6C4',
+    title: 'Event Planner',
+    task: 'Write a prompt asking the AI to help you plan a real-world event (school dance, science fair, community project, fundraiser, etc.). Your prompt needs context, a clear scope, and a specific output format.',
+    hint: 'Give full context (what event, when, budget, who\'s involved). Set a clear scope (don\'t say "plan everything" — ask for specific parts like a timeline, budget breakdown, or task list). Request a practical format like a checklist or table.',
+    criteria: [
+      {
+        id: 'boss4-context',
+        label: 'Provides context about the event',
+        test: 'containsAny',
+        args: [['school', 'class', 'community', 'club', 'team', 'dance', 'fair', 'fundraiser', 'party', 'event', 'project', 'ceremony', 'competition', 'show', 'performance', 'carnival', 'field trip', 'assembly']],
+        weight: 1,
+      },
+      {
+        id: 'boss4-details',
+        label: 'Includes practical details (budget, date, size)',
+        test: 'containsAny',
+        args: [['budget', 'money', 'cost', '$', 'dollar', 'people', 'students', 'attendees', 'guests', 'date', 'month', 'week', 'time', 'hours', 'location', 'gym', 'cafeteria', 'park', 'auditorium', 'room', 'outdoor']],
+        weight: 1,
+      },
+      {
+        id: 'boss4-specific-ask',
+        label: 'Makes a specific planning request',
+        test: 'containsAny',
+        args: [['plan', 'schedule', 'timeline', 'checklist', 'task', 'tasks', 'to-do', 'organize', 'coordinate', 'prepare', 'step', 'steps', 'ideas', 'theme', 'decoration', 'activity', 'activities', 'agenda']],
+        weight: 1,
+      },
+      {
+        id: 'boss4-format',
+        label: 'Requests a structured format',
+        test: 'containsAny',
+        args: [['list', 'checklist', 'table', 'timeline', 'bullet', 'numbered', 'calendar', 'schedule', 'spreadsheet', 'organize', 'section', 'category', 'breakdown', 'chart']],
+        weight: 1,
+      },
+      {
+        id: 'boss4-scope',
+        label: 'Sets a clear scope or boundaries',
+        test: 'containsAny',
+        args: [['focus on', 'specifically', 'just the', 'only', 'main', 'top', 'most important', 'priority', 'first', 'start with', 'for now', 'phase', 'key', '3', '5', '10', 'three', 'five']],
+        weight: 1,
+      },
+    ],
+    thresholds: { good: 3, great: 5 },
+    responses: {
+      poor: 'Planning a school event requires organization and teamwork. You should form a committee, set a date, create a budget, and start planning activities. Make sure to get permission from your school administration and promote the event to students.',
+      good: 'Science Fair Planning Checklist (for 200 students, $500 budget):\n\n6 Weeks Before:\n- Get admin approval and book the gym\n- Form a planning committee (5-8 students)\n- Set categories and rules for projects\n\n4 Weeks Before:\n- Send project registration forms to students\n- Order supplies (poster boards, table covers)\n- Recruit 10 parent/teacher judges\n\n2 Weeks Before:\n- Create judging rubrics\n- Plan the gym layout (table assignments)\n- Make promotional posters\n\n1 Week Before:\n- Confirm all entries and judges\n- Prepare certificates and prizes\n- Set up day-of volunteer schedule\n\nDay Of:\n- Set up tables and signage (2 hours before)\n- Registration and setup for participants\n- Judging rounds, then awards ceremony',
+      great: 'SCIENCE FAIR MASTER PLAN\nEvent: 7th Grade Science Fair | Date: Spring | Venue: School Gym\nStudents: ~200 | Budget: $500 | Planning Committee: 8 students\n\nPHASE 1: SETUP (6-4 Weeks Before)\n| Task | Who | Deadline | Cost |\n|------|-----|----------|------|\n| Get principal approval | Committee lead | Week 1 | $0 |\n| Book the gym | Committee lead | Week 1 | $0 |\n| Define 5 project categories | Science teachers | Week 2 | $0 |\n| Create registration form | Tech person | Week 2 | $0 |\n| Send announcement to all 7th graders | Committee | Week 2 | $0 |\n\nPHASE 2: PREPARATION (4-2 Weeks Before)\n| Task | Who | Deadline | Cost |\n|------|-----|----------|------|\n| Collect registrations (deadline!) | Committee | Week 4 | $0 |\n| Order poster boards (50x) | Supplies lead | Week 4 | $150 |\n| Recruit 12 judges (parents + teachers) | Committee | Week 3 | $0 |\n| Design judging rubric | Science teachers | Week 3 | $0 |\n| Order prizes (1st/2nd/3rd per category) | Budget lead | Week 3 | $200 |\n| Print certificates for all participants | Tech person | Week 2 | $50 |\n\nPHASE 3: FINAL PREP (1 Week Before)\n| Task | Who | Deadline | Cost |\n|------|-----|----------|------|\n| Create gym floor plan (table layout) | Committee | 5 days before | $0 |\n| Make directional signs and banners | Art volunteers | 3 days before | $50 |\n| Confirm all judges and send rubrics | Committee lead | 3 days before | $0 |\n| Buy snacks for judges and volunteers | Budget lead | Day before | $50 |\n| Do a gym walkthrough | Full committee | Day before | $0 |\n\nPHASE 4: DAY OF\n| Time | Activity |\n|------|----------|\n| 8:00 AM | Committee arrives, sets up tables and signs |\n| 9:00 AM | Students set up their projects |\n| 10:00 AM | Judging begins (30 min per category) |\n| 12:30 PM | Public viewing (parents and other classes invited) |\n| 2:00 PM | Awards ceremony in gym |\n| 2:30 PM | Cleanup (all hands on deck!) |\n\nBUDGET SUMMARY: Poster boards $150 + Prizes $200 + Certificates $50 + Signs $50 + Snacks $50 = $500 total\n\nNote: This is a suggested plan. Adjust dates and tasks based on your school\'s specific rules and calendar!',
+    },
+    feedback: {
+      poor: 'Your planning prompt was too vague. The AI needs specific details — what event, how many people, what budget, and exactly what kind of help you need.',
+      good: 'Good planning prompt! You included context and some details. Try adding a stricter scope and a structured format (timeline, table) for a more actionable plan.',
+      great: 'Event planning pro! Your detailed context, clear scope, and structured format produced a plan you could actually execute. This is real-world prompt engineering!',
+    },
+  },
+
+  L6C5: {
+    id: 'L6C5',
+    title: 'BOSS LEVEL: The Ultimate Prompt',
+    task: 'This is the final boss. Write the BEST prompt you possibly can on any topic. It must combine EVERYTHING you\'ve learned: the full CRAFT framework, at least one advanced technique (role, chain-of-thought, few-shot, or chaining), AND at least one defensive prompting strategy (sources, multiple perspectives, honesty about uncertainty, or fact vs. opinion).',
+    hint: 'Go all out! Include: Context (background), Role (persona), Ask (specific request), Format (structure), Tone (style), plus an advanced technique like step-by-step reasoning or a few-shot example, plus a defensive measure like asking for sources or honesty about limits. The best prompt engineers use ALL these tools together!',
+    criteria: [
+      {
+        id: 'boss5-context',
+        label: 'CRAFT: Context provided',
+        test: 'containsAny',
+        args: [['I\'m working on', 'I\'m studying', 'I\'m writing', 'for my class', 'for school', 'for a project', 'I\'m preparing', 'I\'m learning', 'I need', 'my assignment', 'my project', 'I\'m in', 'I\'m a']],
+        weight: 1,
+      },
+      {
+        id: 'boss5-role',
+        label: 'CRAFT: Role assigned',
+        test: 'containsAny',
+        args: [['act as', 'you are', 'pretend', 'be a', 'be my', 'you\'re a', 'act like', 'as a', 'respond as', 'play the role']],
+        weight: 1,
+      },
+      {
+        id: 'boss5-ask',
+        label: 'CRAFT: Clear ask',
+        test: 'containsAny',
+        args: [['explain', 'create', 'write', 'list', 'compare', 'teach', 'help', 'show', 'generate', 'describe', 'summarize', 'analyze', 'design', 'build', 'plan', 'outline']],
+        weight: 1,
+      },
+      {
+        id: 'boss5-format',
+        label: 'CRAFT: Format specified',
+        test: 'containsAny',
+        args: [['bullet', 'numbered', 'list', 'table', 'paragraph', 'step', 'steps', 'outline', 'section', 'heading', 'format', 'chart', 'column', 'points', 'checklist']],
+        weight: 1,
+      },
+      {
+        id: 'boss5-tone',
+        label: 'CRAFT: Tone requested',
+        test: 'containsAny',
+        args: [['friendly', 'fun', 'funny', 'casual', 'formal', 'encouraging', 'exciting', 'simple', 'professional', 'enthusiastic', 'patient', 'serious', 'playful', 'engaging', 'tone', 'conversational', 'supportive']],
+        weight: 1,
+      },
+      {
+        id: 'boss5-advanced',
+        label: 'Advanced technique used',
+        test: 'containsAny',
+        args: [['step by step', 'step-by-step', 'chain of thought', 'show your work', 'example', 'for example', 'like this', 'here is an example', 'same format', 'walk me through', 'break it down', 'think through', 'explain your reasoning']],
+        weight: 1,
+      },
+      {
+        id: 'boss5-defensive',
+        label: 'Defensive prompting included',
+        test: 'containsAny',
+        args: [['source', 'sources', 'cite', 'both sides', 'multiple perspectives', 'different viewpoints', 'pros and cons', 'don\'t make up', 'don\'t guess', 'if you\'re not sure', 'honest', 'fact', 'facts', 'opinion', 'opinions', 'accurate', 'reliable', 'verify', 'uncertain', 'admit', 'bias', 'balanced']],
+        weight: 1,
+      },
+      {
+        id: 'boss5-length',
+        label: 'Prompt has sufficient detail',
+        test: 'minWordCount',
+        args: [30],
+        weight: 1,
+      },
+    ],
+    thresholds: { good: 4, great: 7 },
+    responses: {
+      poor: 'Space is really big and there are lots of planets. Earth is the third planet from the Sun. Scientists are working on missions to Mars. Space exploration is important for the future of humanity.',
+      good: 'As your astronomy guide, let me walk you through the latest Mars exploration research for your 8th grade science presentation!\n\nKey Mars Mission Updates:\n1. NASA\'s Perseverance Rover has been exploring Jezero Crater, looking for signs of ancient microbial life\n2. The Ingenuity helicopter made history as the first aircraft to fly on another planet\n3. SpaceX is developing Starship for future crewed Mars missions\n4. The Mars Sample Return mission aims to bring Martian rocks back to Earth\n\nSources to check: NASA Mars Exploration Program (mars.nasa.gov), ESA Mars Express (esa.int)\n\nNote: Space exploration timelines change frequently. Verify current mission dates with NASA\'s official site, as some dates may have shifted since my training data.',
+      great: 'MARS EXPLORATION BRIEFING\nPrepared for: 8th Grade Science Presentation | Format: 4-Section Outline\nYour Astronomy Guide | Tone: Exciting but accurate\n\nSECTION 1: WHY MARS? (The Big Picture)\n- Mars is the most Earth-like planet in our solar system\n- It once had liquid water — meaning it might have supported life\n- It could potentially be a second home for humanity someday\n- Source: NASA Mars Overview (mars.nasa.gov/all-about-mars/facts)\n\nSECTION 2: CURRENT MISSIONS (Step-by-Step Timeline)\nStep 1 (2021): NASA\'s Perseverance rover landed in Jezero Crater\n   - What it does: Searches for signs of ancient microbial life\n   - Cool fact: It\'s collecting rock samples to send back to Earth later!\n   - Source: mars.nasa.gov/mars2020\n\nStep 2 (2021): Ingenuity helicopter made first powered flight on Mars\n   - Why it matters: Proved aircraft can fly in Mars\'s thin atmosphere\n   - Source: mars.nasa.gov/technology/helicopter\n\nStep 3 (Planned ~2030s): Mars Sample Return mission\n   - Goal: Bring Perseverance\'s rock samples back to Earth for study\n   - Source: ESA Mars Sample Return (esa.int)\n\nStep 4 (Planned ~2030s-2040s): Crewed Mars missions\n   - Both NASA and SpaceX are working toward sending humans\n   - Note: These dates are estimates and have shifted multiple times\n\nSECTION 3: CHALLENGES (Honest Assessment)\n- Travel time: 7-9 months each way\n- Radiation: No magnetic field on Mars = dangerous cosmic rays\n- Communication delay: 4-24 minutes for signals between Earth and Mars\n- Cost: Tens of billions of dollars\n- HONEST NOTE: Many timeline predictions for Mars missions have been delayed. Be cautious about citing specific future dates in your presentation.\n\nSECTION 4: DIFFERENT PERSPECTIVES\n- Pro-exploration view: Mars colonization ensures human survival if something happens to Earth\n- Cautious view: We should fix problems on Earth before spending billions on Mars\n- Scientific view: Even without colonization, Mars research teaches us about planetary science and the origins of life\n- All three perspectives are valid and held by respected scientists!\n\nFACT vs. OPINION CHECK:\n- FACT: Perseverance is currently on Mars collecting samples\n- FACT: Mars once had liquid water on its surface\n- OPINION: Whether humans should prioritize Mars colonization (debated!)\n- UNCERTAIN: Exact timelines for crewed missions (keep checking nasa.gov)\n\nGood luck on your presentation! Remember to verify all dates against current NASA sources, as space mission timelines frequently change.',
+    },
+    feedback: {
+      poor: 'This is the boss level — you need to bring everything you\'ve learned! Include CRAFT elements, advanced techniques, AND defensive prompting together.',
+      good: 'Solid prompt with several techniques! But the boss level requires it all — full CRAFT, an advanced technique, AND defensive prompting. You\'re close!',
+      great: 'YOU BEAT THE BOSS LEVEL! Your prompt used the full CRAFT framework, advanced techniques, AND defensive prompting. That response is detailed, well-sourced, balanced, and structured. You are officially a prompt engineering pro!',
+    },
+  },
+};
